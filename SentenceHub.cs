@@ -1,5 +1,5 @@
 ﻿using Microsoft.AspNetCore.SignalR;
-using System.Threading.Tasks;
+using System.Runtime.CompilerServices;
 
 namespace ExternalStreamer.Hubs
 {
@@ -11,16 +11,14 @@ namespace ExternalStreamer.Hubs
         {
             _data = new List<string> { "First sentence", "This is my second sentence.", "This is my third sentence.", "This is my fourth sentence.", "This is my last sentence." };
         }
-        public async IAsyncEnumerable<string> GetSentence(CancellationToken cancellationToken)
+        public async IAsyncEnumerable<string> GetSentence([EnumeratorCancellation] CancellationToken cancellationToken)
         {
             Console.WriteLine("Starting to send sentences...");
 
-            while (true)
+            while (!cancellationToken.IsCancellationRequested)
             {
-                cancellationToken.ThrowIfCancellationRequested();
                 foreach (var item in _data)
                 {
-                    cancellationToken.ThrowIfCancellationRequested();
                     yield return item;
                     await Task.Delay(1000, cancellationToken);
                 }
