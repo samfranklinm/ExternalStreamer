@@ -14,11 +14,13 @@ namespace ExternalStreamer.Hubs
         public async IAsyncEnumerable<string> GetSentence([EnumeratorCancellation] CancellationToken cancellationToken)
         {
             Console.WriteLine("Starting to send sentences...");
-
-            foreach (var item in _data)
+            while(true)
             {
-                yield return item;
-                await Task.Delay(1000, cancellationToken);
+                foreach (var item in _data)
+                {
+                    yield return item;
+                    await Task.Delay(1000, cancellationToken);
+                }
             }
         }
     }
