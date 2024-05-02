@@ -15,13 +15,10 @@ namespace ExternalStreamer.Hubs
         {
             Console.WriteLine("Starting to send sentences...");
 
-            while (!cancellationToken.IsCancellationRequested)
+            foreach (var item in _data)
             {
-                foreach (var item in _data)
-                {
-                    yield return item;
-                    await Task.Delay(1000, cancellationToken);
-                }
+                yield return item;
+                await Task.Delay(1000, cancellationToken);
             }
         }
     }
