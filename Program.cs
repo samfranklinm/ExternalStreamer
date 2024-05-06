@@ -10,7 +10,7 @@ builder.Services.AddSignalR();
 builder.Services.AddCors(options =>
 {
     options.AddPolicy("CorsPolicy", policyBuilder =>
-        policyBuilder.WithOrigins("http://localhost:7025") // webapi URL
+        policyBuilder.WithOrigins("http://localhost:7205") // webapi URL
                      .AllowAnyMethod()
                      .AllowAnyHeader()
                      .AllowCredentials());
